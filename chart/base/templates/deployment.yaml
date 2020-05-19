@@ -61,6 +61,8 @@ spec:
               value: ""
             - name: LOG_LEVEL
               value: {{ .Values.logLevel | quote }}
+            - name: BOOTSTRAP_SERVER
+              value: {{ .Values.bootstrapServer }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -45,3 +45,5 @@ partOf: ""
 connectsTo: ""
 
 runtime: spring
+
+bootstrapServer: "kafka-kafka-bootstrap.kafka:9092"

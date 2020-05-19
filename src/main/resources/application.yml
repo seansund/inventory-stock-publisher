@@ -1,6 +1,13 @@
 spring:
   application:
     name: "${IMAGE_NAME:template-spring-boot}"
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: ${BOOTSTRAP_SERVER:kafka-kafka-bootstrap-kafka.cntk-showcase-ocp4-0143c5dd31acd8e030a1d6e0ab1380e3-0000.us-east.containers.appdomain.cloud:443}
+
+kafka:
+  topic: "inventory"
 
 hello:
   pattern: "Hello there, %s!"
