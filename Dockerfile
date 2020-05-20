@@ -1,6 +1,7 @@
 FROM registry.access.redhat.com/ubi8/openjdk-11:1.3-3 AS builder
 
 WORKDIR /home/gradle
+RUN mkdir -p /home/gradle/.gradle
 COPY . .
 RUN ./gradlew assemble copyJarToServerJar --no-daemon
 
