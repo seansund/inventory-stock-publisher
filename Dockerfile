@@ -2,11 +2,9 @@ FROM gradle:jdk11 AS builder
 
 WORKDIR /home/gradle
 COPY . .
-RUN ./gradlew assemble copyJarToServerJar --no-daemon
+RUN ./gradlew assemble copyJarToServerJar
 
-FROM registry.access.redhat.com/ubi8/ubi:8.1-408
-
-RUN dnf install -y java-11-openjdk.x86_64
+FROM registry.access.redhat.com/ubi8/openjdk-11:1.3-3
 
 COPY --from=builder /home/gradle/build/libs/server.jar ./server.jar
 
