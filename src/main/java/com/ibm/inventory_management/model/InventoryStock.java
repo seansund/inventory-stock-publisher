@@ -2,11 +2,13 @@ package com.ibm.inventory_management.model;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
 @EqualsAndHashCode
-public class InventoryStock {
+public class InventoryStock implements Serializable {
     private String id;
     private Integer count;
 

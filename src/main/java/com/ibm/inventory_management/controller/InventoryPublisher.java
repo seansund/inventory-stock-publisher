@@ -3,6 +3,8 @@ package com.ibm.inventory_management.controller;
 import com.ibm.inventory_management.config.KafkaConfig;
 import com.ibm.inventory_management.model.InventoryStock;
 import org.apache.kafka.clients.producer.Producer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class InventoryPublisher {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InventoryPublisher.class);
 
     @Autowired
     private KafkaConfig config;
@@ -23,6 +26,8 @@ public class InventoryPublisher {
 
     @PostMapping(path = "/send/inventory/{id}/stock/{count}")
     public void sendInventoryStock(@PathVariable String id, @PathVariable String count) {
+
+        LOGGER.debug("Sending InventoryStock to topic: " + config.getTopic());
         this.template.send(config.getTopic(), new InventoryStock(id, count));
     }
 }
