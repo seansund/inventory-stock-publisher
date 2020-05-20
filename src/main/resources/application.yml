@@ -51,5 +51,7 @@ logging:
 
 opentracing:
   jaeger:
-    http-sender:
-      url: ${JAEGER_ENDPOINT:http://localhost:9411/api/traces}
+    service-name: "${IMAGE_NAME:inventory-stock-publisher}"
+    enabled: true
+    udp-sender:
+      host: ${JAEGER_AGENT:jaeger-agent.tools}
