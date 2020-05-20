@@ -55,3 +55,4 @@ opentracing:
     enabled: true
     udp-sender:
       host: ${JAEGER_AGENT:jaeger-agent.tools}
+      port: 6831
