@@ -2,8 +2,12 @@ package com.ibm.inventory_management.controller;
 
 import com.ibm.inventory_management.config.KafkaConfig;
 import com.ibm.inventory_management.model.InventoryStock;
+import org.apache.kafka.clients.producer.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.core.ProducerFactoryUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +21,8 @@ public class InventoryPublisher {
     @Autowired
     private KafkaTemplate<Object, Object> template;
 
-    @PostMapping(path = "/send/inventory/{count}")
-    public void sendInventoryStock(@PathVariable String count) {
-        this.template.send(config.getTopic(), new InventoryStock(count));
+    @PostMapping(path = "/send/inventory/{id}/stock/{count}")
+    public void sendInventoryStock(@PathVariable String id, @PathVariable String count) {
+        this.template.send(config.getTopic(), new InventoryStock(id, count));
     }
 }
