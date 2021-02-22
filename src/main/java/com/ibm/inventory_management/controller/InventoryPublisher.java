@@ -4,14 +4,10 @@ import com.ibm.inventory_management.config.KafkaConfig;
 import com.ibm.inventory_management.model.InventoryStock;
 import io.jaegertracing.internal.JaegerTracer;
 import io.opentracing.Span;
-import org.apache.kafka.clients.producer.Producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.core.ProducerFactory;
-import org.springframework.kafka.core.ProducerFactoryUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +20,7 @@ public class InventoryPublisher {
     private KafkaConfig config;
 
     @Autowired
-    private KafkaTemplate<Object, Object> template;
+    private KafkaTemplate<String, InventoryStock> template;
 
     @Autowired
     private JaegerTracer tracer;
@@ -38,4 +34,5 @@ public class InventoryPublisher {
 
         span.finish();
     }
+
 }
